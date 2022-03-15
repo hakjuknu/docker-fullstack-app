@@ -6,21 +6,21 @@ services:
   - docker
 
 before_install:
-  - docker build -t hakjuknu/react-test-app -f ./frontend/Dockerfile.dev ./frontend
+  - docker build -t johnahn/react-test-app -f ./frontend/Dockerfile.dev ./frontend
 
 script:
-  - docker run -e CI=true hakjuknu/react-test-app npm test
+  - docker run -e CI=true johnahn/react-test-app npm test
 
 after_success:
-  - docker build -t hakjuknu/docker-frontend ./frontend
-  - docker build -t hakjuknu/docker-backend ./backend
-  - docker build -t hakjuknu/docker-nginx ./nginx
+  - docker build -t johnahn/docker-frontend ./frontend
+  - docker build -t johnahn/docker-backend ./backend
+  - docker build -t johnahn/docker-nginx ./nginx
 
   - echo "$DOCKER_HUB_PASSWORD" | docker login -u "$DOCKER_HUB_ID" --password-stdin
 
-  - docker push hakjuknu/docker-frontend
-  - docker push hakjuknu/docker-backend
-  - docker push hakjuknu/docker-nginx
+  - docker push johnahn/docker-frontend
+  - docker push johnahn/docker-backend
+  - docker push johnahn/docker-nginx
 
 deploy:
   provider: elasticbeanstalk
